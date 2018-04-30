@@ -1,80 +1,7 @@
-class Task {
-    id: string; // changed from number to string
-    name: string;
-    status: boolean;
-    constructor (taskname: string){
-        this.name = taskname;
-        this.id = new Date().getTime().toString();  // converted to string
-        this.status = false;
-        return this;
-    }
-}
-
-class TaskManager{
-    tasks: Array<Task>;
-    constructor(array: Array<Task>){
-        this.tasks = array;
-    }
-    add(task: Task){
-        this.tasks.push(task);
-        console.log(this.tasks);
-    }
-    delete(task: Task) {
-        let index = this.tasks.indexOf(task,0);
-        if(index > -1) {
-            this.tasks.splice(index, 1);
-        }
-        console.log(this.tasks);
-    }
-}
-
-class ListView{
-    list:HTMLElement;
-    constructor(listId: string){
-        this.list = document.getElementById(listId);
-    }
-
-    render(items: Array<Task>){
-        items.forEach((task)=>{
-            let id = task.id;
-            let name = task.name;
-            let status = task.status;
-            //template literal (new standard in javascript)
-            let template = `<li id="${id}" data-status="${status}">
-                            <div class="task-container">
-                                <div class="task-name">${name}</div>
-                                <div class="task-buttons">
-                                    <button type="button" data-function="status">&#x2714;</button>
-                                    <button idtype="button" data-function="delete">&times;</button>
-                                </div>
-                            </div>
-                            </li>`;
-            let fragment = document.createRange().createContextualFragment(template);
-            this.list.appendChild(fragment);
-        });
-    }
-
-    clear(){
-        this.list.innerHTML = '';
-    }
-}
-
-class DataStorage{
-
-    storage:any;
-    constructor(){
-        this.storage = window.localStorage;
-    }
-    store( array:Array<Task>){
-        let data = JSON.stringify(array);
-        this.storage.setItem('taskData', data);
-    }
-    read(){
-        let data = this.storage.getItem('taskData');
-        let array = JSON.parse( data );
-        return array;
-    }
-}
+import { TaskManager } from './task-manager';
+import { Task } from './task';
+import { ListView } from './list-view';
+import { DataStorage } from './data-storage';
 
 //initialize
 var taskArray :Array<any> = [];
@@ -82,18 +9,28 @@ var taskStorage = new DataStorage();
 var taskManager = new TaskManager(taskArray);
 var listView = new ListView('task-list');
 
+// when screens loads
 window.addEventListener('load', () => {
-    let taskData = taskStorage.read();
-    if(taskData != null){
-        taskData.forEach( (item) => {
-            taskArray.push(item);
-        });
-    }   
-
-    listView.render(taskArray);
+    let taskData = taskStorage.read((data) => {
+        if(data.length > 0) {
+            data.forEach((item) => {
+                taskArray.push(item);
+            });
+            listView.clear();
+            listView.render( taskArray );
+            fixFooter();
+        }
+    })
 });
 
+// window listener in case of screen resize
+window.addEventListener('resize', () => {
+    fixFooter();
+});
 
+window.addEventListener('click', () => {
+    fixFooter();
+});
 
 // reference to form
 const taskform = <HTMLFormElement>document.getElementById('task-form');
@@ -101,10 +38,76 @@ taskform.addEventListener('submit', (event: Event) => {
     event.preventDefault();
     let input = <HTMLInputElement>document.getElementById('task-input');
     let taskName = input.value;
-    //console.log(taskname);
-    let task = new Task(taskName);
-    taskManager.add(task);
-    listView.clear();
-    taskStorage.store(taskArray);
-    listView.render(taskArray);
+    taskform.reset();
+    if (taskName.length > 0) {
+        let task = new Task(taskName);
+        taskManager.add(task);
+        listView.clear();
+        taskStorage.store(taskArray, ( result ) => {
+            if(result) {
+                taskform.reset();
+                listView.clear();
+                listView.render (taskArray);
+            }
+            else {
+                console.log("something wrong with storage!")
+            }
+        });
+        listView.render (taskArray);
+    }
 });
+
+const listElement : HTMLElement = document.getElementById('task-list');
+listElement.addEventListener('click', (event : Event) => {
+    let target: HTMLElement = <HTMLElement> event.target;
+    let id = getParentId(<Node> event.target);
+    console.log(id);
+    if(target.getAttribute('data-function') == 'status') {
+        if (id) {
+            taskManager.changeStatus(id, () => {
+                taskStorage.store( taskArray, () => {
+                    listView.clear();
+                    listView.render(taskArray);
+                });
+            });
+        }
+    }
+    if (target.getAttribute('data-function') == 'delete') {
+        if (id) {
+            taskManager.delete(id, () => {
+                taskStorage.store( taskArray, () => {
+                    listView.clear();
+                    listView.render(taskArray);
+                });
+            });
+        }
+    }    
+});
+
+function getParentId(elm : Node)
+{
+    while(elm.parentNode) {
+        elm = elm.parentNode;
+        let id : string = (<HTMLElement>elm).getAttribute('id');
+        if(id) {
+            return id;
+        }
+    }
+    return null;
+}
+
+// change the css position style from fixed (no scroll in page) to relative (with scroll in page)
+// 
+function fixFooter() {
+    let footer = document.getElementsByTagName("footer");
+    if (footer.length != 0) {
+        if(window.innerHeight < document.documentElement.scrollHeight) {
+            footer[0].style.position = "relative";
+            footer[0].style.padding = "0.1px 0";
+        }
+        else {
+            footer[0].style.position = "fixed";
+            footer[0].style.padding = "0";
+        }        
+      }
+}

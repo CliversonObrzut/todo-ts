@@ -1,16 +1,23 @@
 body {
-  margin: 10px;
-  padding: 10px;
-  background-color: #74a0ed; }
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 footer {
-  background-color: #1a59c8; }
+  background-color: #80CBC4;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center; }
 
 header {
-  background-color: #e5edfc;
+  position: fixed;
+  width: 100%;
+  background-color: #80CBC4;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center; }
   header .logo {
     max-width: 60px;
@@ -18,29 +25,38 @@ header {
   header h1 {
     margin: 0;
     padding: 5px; }
+    header h1 p {
+      margin: 0 0 0 0; }
 
 #task-form {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  position: fixed;
+  top: 86px;
+  width: 100%; }
   #task-form input {
     flex: 1;
     padding: 5px;
     box-sizing: border-box;
-    border: 1px solid #74a0ed;
-    background-color: #e5edfc; }
+    min-height: 40px;
+    border: 1px solid grey;
+    background-color: lightgrey;
+    font-size: 9pt; }
   #task-form input:focus {
-    background-color: yellow;
+    background-color: #daf0ee;
     outline: none; }
   #task-form button {
     max-width: 100px;
-    padding: 5px;
-    background-color: #1a59c8;
+    padding: 5px 30px;
+    background-color: #3b9088;
     color: white; }
 
 #task-list {
-  margin: 10px;
-  padding: 10px;
-  list-style: none; }
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  padding-bottom: 52px;
+  padding-top: 126px; }
   #task-list li {
     border-bottom: 1px solid #cccccc; }
     #task-list li .task-container {
@@ -48,7 +64,8 @@ header {
       flex-direction: row;
       justify-content: space-between; }
       #task-list li .task-container .task-name {
-        padding: 1em; }
+        padding: 1.5em;
+        font-size: 9pt; }
       #task-list li .task-container .task-buttons {
         display: flex;
         flex-direction: row; }
@@ -58,8 +75,19 @@ header {
           font-size: 1.5em;
           background-color: transparent;
           border: 1px solid transparent; }
+        #task-list li .task-container .task-buttons button[data-function="delete"] {
+          color: #f08080; }
+        #task-list li .task-container .task-buttons button[data-function="status"] {
+          color: #90ee90; }
         #task-list li .task-container .task-buttons button:focus {
           outline: none;
           background-color: #cccccc; }
         #task-list li .task-container .task-buttons button[data-function='status'] {
           font-size: 1em; }
+  #task-list li[data-status="true"] {
+    background-color: #eeeeee; }
+    #task-list li[data-status="true"] .task-name {
+      text-decoration: line-through;
+      opacity: 0.5; }
+    #task-list li[data-status="true"] .task-buttons button[data-function="status"] {
+      color: #cccccc; }

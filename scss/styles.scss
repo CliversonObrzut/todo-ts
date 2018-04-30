@@ -1,11 +1,18 @@
-$theme-color: #74a0ed;
+$theme-color: #80CBC4;
 $theme-light: lighten($theme-color, 25%);
 $theme-dark: darken($theme-color, 25%);
+$font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$font-size: 9pt;
 
 @mixin reset {
-    margin: 10px;
-    padding: 10px;
+    margin: 0px;
+    padding: 0px;
 }
+
+@mixin list-reset{
+    @include reset;
+    list-style: none;
+  }
 
 @mixin display ($type) {
     display: $type;
@@ -18,17 +25,24 @@ $theme-dark: darken($theme-color, 25%);
 
 body{
     @include reset;
-    background-color: $theme-color;
+    background-color: white;
+    font-family: $font-family;
 }
 
 footer {
-    background-color: $theme-dark;
+    background-color: $theme-color;
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    text-align: center;
 }
 
 header {
-    background-color: $theme-light;
+    position: fixed;
+    width: 100%;
+    background-color: $theme-color;
     @include flex(row);
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     .logo {
         max-width: 60px;
@@ -37,25 +51,33 @@ header {
     h1 {
         margin: 0;
         padding: 5px;
+        p {
+            margin: 0 0 0 0;
+        }
     }
 }
 
 #task-form {
     @include flex (row);
+    position: fixed;
+    top: 86px;
+    width: 100%;
     input{
         flex:1;
         padding: 5px;
         box-sizing: border-box;
-        border: 1px solid $theme-color;
-        background-color: $theme-light;
+        min-height: 40px;
+        border: 1px solid grey;
+        background-color: lightgrey;
+        font-size: $font-size;
     }
     input:focus {
-        background-color: yellow;
+        background-color: $theme-light;
         outline:none;
     }
     button {
         max-width: 100px;
-        padding: 5px;
+        padding: 5px 30px;
         background-color: $theme-dark;
         color: white;
     }
@@ -64,13 +86,16 @@ header {
 #task-list{
     @include reset;
     list-style: none;
+    padding-bottom: 52px;
+    padding-top: 126px;
     li{            
         border-bottom: 1px solid #cccccc;
         .task-container{
             @include flex(row);
             justify-content: space-between;
             .task-name{
-                padding: 1em;
+                padding: 1.5em;
+                font-size: $font-size;
             }
             .task-buttons{
                 @include flex(row);
@@ -81,6 +106,12 @@ header {
                     background-color: transparent;
                     border: 1px solid transparent;
                 }
+                button[data-function="delete"] {
+                    color: #f08080;
+                }
+                button[data-function="status"] {
+                    color: #90ee90;
+                }
                 button:focus{
                     outline: none;
                     background-color: #cccccc;
@@ -88,6 +119,18 @@ header {
                 button[data-function='status']{
                     font-size:1em;
                 }
+            }
+        }
+    }
+    li[data-status="true"] {
+        background-color: #eeeeee; 
+        .task-name {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .task-buttons {
+            button[data-function="status"] {
+                color: #cccccc;
             }
         }
     }
