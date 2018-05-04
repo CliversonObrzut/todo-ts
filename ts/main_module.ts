@@ -9,7 +9,7 @@ var taskStorage = new DataStorage();
 var taskManager = new TaskManager(taskArray);
 var listView = new ListView('task-list');
 
-// when screens loads
+// when screens loads, loads the data from localStorage and render at the screen
 window.addEventListener('load', () => {
     let taskData = taskStorage.read((data) => {
         if(data.length > 0) {
@@ -23,11 +23,12 @@ window.addEventListener('load', () => {
     })
 });
 
-// window listener in case of screen resize
+// window listener in case of screen resize calling the method to fix the footer position
 window.addEventListener('resize', () => {
     fixFooter();
 });
 
+// window listener in case of any click in screen calling the method to fix the footer position
 window.addEventListener('click', () => {
     fixFooter();
 });
@@ -57,11 +58,11 @@ taskform.addEventListener('submit', (event: Event) => {
     }
 });
 
+// updates tasks info in localStorage in case of StatusChange or Delete
 const listElement : HTMLElement = document.getElementById('task-list');
 listElement.addEventListener('click', (event : Event) => {
     let target: HTMLElement = <HTMLElement> event.target;
     let id = getParentId(<Node> event.target);
-    console.log(id);
     if(target.getAttribute('data-function') == 'status') {
         if (id) {
             taskManager.changeStatus(id, () => {
@@ -84,6 +85,7 @@ listElement.addEventListener('click', (event : Event) => {
     }    
 });
 
+// function to return the id of the parent element in the node
 function getParentId(elm : Node)
 {
     while(elm.parentNode) {

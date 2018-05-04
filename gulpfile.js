@@ -60,6 +60,11 @@ gulp.task('assets', function(){
 	.pipe(gulp.dest(buildpath+'/images'));
 });
 
+gulp.task('fonts', function () {
+  return gulp.src(['./fonts/font-awsome/*.*'])
+  .pipe(gulp.dest(buildpath+'/fonts/'))
+});
+
 gulp.task('build', ['html','sass','ts']);
 
 gulp.task('watch', function(){

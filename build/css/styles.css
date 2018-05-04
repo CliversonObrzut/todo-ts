@@ -18,7 +18,8 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  min-height: 86px; }
   header .logo {
     max-width: 60px;
     padding: 5px; }
@@ -41,7 +42,7 @@ header {
     min-height: 40px;
     border: 1px solid grey;
     background-color: lightgrey;
-    font-size: 9pt; }
+    font-size: 10pt; }
   #task-form input:focus {
     background-color: #daf0ee;
     outline: none; }
@@ -64,8 +65,14 @@ header {
       flex-direction: row;
       justify-content: space-between; }
       #task-list li .task-container .task-name {
-        padding: 1.5em;
-        font-size: 9pt; }
+        padding: 1em 1.5em;
+        font-size: 10pt;
+        text-align: justify;
+        width: 90%;
+        word-wrap: break-word; }
+      #task-list li .task-container .task-date {
+        font-size: 8pt;
+        color: #0000ff; }
       #task-list li .task-container .task-buttons {
         display: flex;
         flex-direction: row; }
@@ -90,4 +97,4 @@ header {
       text-decoration: line-through;
       opacity: 0.5; }
     #task-list li[data-status="true"] .task-buttons button[data-function="status"] {
-      color: #cccccc; }
+      color: grey; }

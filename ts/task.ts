@@ -5,6 +5,7 @@ export class Task {
     constructor (taskname: string){
         this.name = taskname;
         this.id = new Date().getTime().toString();  // converted to string
+        console.log(this.id);
         this.status = false;
         return this;
     }

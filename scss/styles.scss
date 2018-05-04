@@ -2,7 +2,7 @@ $theme-color: #80CBC4;
 $theme-light: lighten($theme-color, 25%);
 $theme-dark: darken($theme-color, 25%);
 $font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-$font-size: 9pt;
+$font-size: 10pt;
 
 @mixin reset {
     margin: 0px;
@@ -27,6 +27,7 @@ body{
     @include reset;
     background-color: white;
     font-family: $font-family;
+    
 }
 
 footer {
@@ -44,6 +45,7 @@ header {
     @include flex(row);
     justify-content: center;
     align-items: center;
+    min-height: 86px;
     .logo {
         max-width: 60px;
         padding: 5px
@@ -93,9 +95,17 @@ header {
         .task-container{
             @include flex(row);
             justify-content: space-between;
+          
             .task-name{
-                padding: 1.5em;
+                padding: 1em 1.5em;
                 font-size: $font-size;
+                text-align: justify;
+                width: 90%;
+                word-wrap: break-word;
+            }
+            .task-date {
+                font-size: 8pt;
+                color: #0000ff;
             }
             .task-buttons{
                 @include flex(row);
@@ -121,17 +131,18 @@ header {
                 }
             }
         }
-    }
-    li[data-status="true"] {
-        background-color: #eeeeee; 
-        .task-name {
-            text-decoration: line-through;
-            opacity: 0.5;
         }
-        .task-buttons {
-            button[data-function="status"] {
-                color: #cccccc;
+        li[data-status="true"] {
+            background-color: #eeeeee; 
+            .task-name {
+                text-decoration: line-through;
+                opacity: 0.5;
             }
-        }
+            .task-buttons{
+                button[data-function="status"] {
+                    color: grey;
+                }
+            }
+        }    
     }
-}
+  
