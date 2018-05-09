@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Apr 27 16:21:28 AEST 2018
+#Fri May 04 16:44:32 AEST 2018
 25.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\js\\main.js
 25.base=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 22.set=ANDROID_RESOURCE
@@ -79,7 +79,7 @@ count=34
 3.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-port-ldpi-v4\\screen.png
 3.base=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 13.set=ANDROID_RESOURCE
-23.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-xxhdpi-v4\\screen.png
+23.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-hdpi-v4\\screen.png
 29.set=ANDROID_RESOURCE
 23.base=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 18.set=ANDROID_RESOURCE
@@ -91,7 +91,7 @@ count=34
 4.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-ldpi-v4\\screen.png
 4.base=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 23.set=ANDROID_RESOURCE
-24.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-hdpi-v4\\screen.png
+24.file=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-xxhdpi-v4\\screen.png
 9.set=ANDROID_RESOURCE
 24.base=C\:\\Users\\clive\\Documents\\Pessoal\\AIT\\CrossApps\\ToDoList\\app\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 12.set=ANDROID_RESOURCE
